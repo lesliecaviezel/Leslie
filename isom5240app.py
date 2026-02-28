@@ -9,7 +9,7 @@ st.title("Streamlit Demo on Hugging Face")
 st.write("Welcome to a demo app showcasing basic Streamlit components!")
 
 # File uploader for image and audio
-uploaded_image = st.file_uploader("Upload an image",
+uploaded_image = st.file_uploader("Please upload an image",
                                   type=["jpg", "jpeg", "png"])
 
 # Display image with spinner
