@@ -11,11 +11,32 @@ def img2text(url):
     text = image_to_text_model(url)[0]["generated_text"]
     return text
 
-# text2story
-def text2story(text):
+def text2story(caption):
     pipe = pipeline("text-generation", model="pranavpsv/genre-story-generator-v2")
-    story_text = pipe(text)[0]['generated_text']
-    return story_text
+
+    prompt = (
+        "Write a child-friendly story for kids aged 3-10.\n"
+        "Rules:\n"
+        "- 50 to 100 words\n"
+        "- Use short and simple sentences\n"
+        "- Keep a warm, positive tone\n"
+        "- No violence, horror, or scary elements\n"
+        "- End with a gentle lesson about kindness, sharing, or courage\n\n"
+        f"Image description: {caption}\n"
+        "Story:"
+    )
+
+    out = pipe(
+        prompt,
+        max_new_tokens=130,
+        do_sample=True,
+        temperature=0.8,
+        top_p=0.9
+    )[0]["generated_text"]
+
+    # 某些模型会把 prompt 一起返回，做一次清理
+    story = out.replace(prompt, "").strip()
+    return story
 
 # text2audio
 def text2audio(story_text):
