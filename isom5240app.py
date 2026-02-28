@@ -20,5 +20,5 @@ if uploaded_image is not None:
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
 # Button interaction
-if st.button("Click Me"):
+if st.button("Click Me✔"):
     st.write("🎉 You clicked the button!")
